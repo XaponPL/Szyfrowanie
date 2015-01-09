@@ -2,7 +2,7 @@
 public class Cipher {
     
     private int offset = 1;
-
+    private Alfabet alpha;
     public int getOffset() {
         return offset;
     }
@@ -11,7 +11,11 @@ public class Cipher {
         this.offset = offset;
     }
     private String alfabet = "ABCDEFGHIJKLMNOPRSTQWXYZ ";
-    private String regex = "^[A-Z ]*$";
+   Cipher(){}
+   Cipher(int offset, Alfabet){
+       this.offset=offset;
+       this.alpha = alpha;
+   }
     
     
     public String encrypt(String txt){
@@ -21,12 +25,15 @@ public class Cipher {
         String out = "";
         int zmienna=0;
         
-        if(match(txt)){
+        if(isTextVaild(txt)){
             int alf = alfabet.length();
          for(int i=0; i<txt.length(); i++){
-            zmienna=zmienna + txt.indexOf(i);
-            zmienna=zmienna + offset;
-            out=out+alfabet.charAt(zmienna);
+            char ch = txt.charAt(i);
+            int idx = alfabet.indexOf(ch);
+            idx = (idx + offset) % alfabet.length();
+            ch = alfabet.charAt(idx);
+                                  
+            out=out+alfabet.charAt(idx);
             
         }
        
@@ -45,9 +52,7 @@ public class Cipher {
         return out;
     }
 
-    private boolean match(String txt) {
-        return (txt.matches(regex))?true:false;
-    }
+   
     
     }
     
